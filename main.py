@@ -1,7 +1,4 @@
-from duckduckgo3 import (
-    __version__,
-    query,
-)
+import duckduckgo3 as d
 
 
 def main():
@@ -10,7 +7,7 @@ def main():
 
     parser = OptionParser(
         usage="usage: %prog [options] query",
-        version="ddg3 {}".format(__version__)
+        version="ddg3 {}".format(d.__version__)
     )
     parser.add_option(
         "-o", "--open",
@@ -48,7 +45,7 @@ def main():
 
         sys.exit(0)
 
-    results = query(q)
+    results = d.query(q)
 
     if options.d and results.type == 'disambiguation':
         try:
@@ -56,7 +53,7 @@ def main():
         except IndexError:
             print("Invalid disambiguation number.")
             sys.exit(1)
-        results = query(related.url.split("/")[-1].replace("_", " "))
+        results = d.query(related.url.split("/")[-1].replace("_", " "))
 
     if results.answer and results.answer.text:
         print("Answer: {}\n".format(results.answer.text))
