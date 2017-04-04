@@ -3,10 +3,10 @@ from setuptools import setup
 long_description = open('README.rst').read()
 
 setup(
-      name='duckduckgo3',
-      version='0.6.2',
-      py_modules=['duckduckgo3'],
-      description='Library for querying the Duck Duck Go API',
+      name='ddg3',
+      version='0.6.5',
+      py_modules=['ddg3'],
+      description='Library for querying the Duck Duck Go API, updated for python3',
       author='Michael Stephens, Jacobi Petrucciani',
       author_email='jacobi@mimirhq.com',
       license='BSD',
@@ -21,5 +21,5 @@ setup(
             "Programming Language :: Python",
             "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
       ],
-      entry_points={'console_scripts': ['ddg3 = duckduckgo3:main']},
+      entry_points={'console_scripts': ['ddg3 = ddg3:main']},
 )
