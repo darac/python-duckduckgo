@@ -5,8 +5,9 @@ python-duckduckgo
 A Python library for querying the Duck Duck Go API.
 
 Copyright Michael Stephens <me@mikej.st>, released under a BSD-style license.
+Updated for Python3 by Jacobi Petrucciani
 
-Source: http://github.com/mikejs/python-duckduckgo
+Source: https://github.com/jpetrucciani/python-duckduckgo
 
 Installation
 ============
@@ -18,8 +19,8 @@ To install run
 Usage
 =====
 
-    >>> import duckduckgo
-    >>> r = duckduckgo.query('Duck Duck Go')
+    >>> import duckduckgo3
+    >>> r = duckduckgo3.query('Duck Duck Go')
     >>> r.type
     'answer'
     >>> r.results[0].text
