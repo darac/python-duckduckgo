@@ -4,7 +4,7 @@ long_description = open('README.rst').read()
 
 setup(
       name='duckduckgo3',
-      version='0.6.1',
+      version='0.6.2',
       py_modules=['duckduckgo3'],
       description='Library for querying the Duck Duck Go API',
       author='Michael Stephens, Jacobi Petrucciani',
@@ -21,5 +21,5 @@ setup(
             "Programming Language :: Python",
             "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
       ],
-      entry_points={'console_scripts': ['ddg3 = duckduckgo:main']},
+      entry_points={'console_scripts': ['ddg3 = duckduckgo3:main']},
 )
