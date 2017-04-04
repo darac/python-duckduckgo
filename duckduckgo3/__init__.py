@@ -3,7 +3,7 @@ import urllib.parse
 import requests
 from xml.etree import ElementTree
 
-__version__ = 0.6
+__version__ = '0.0.7'
 
 
 def query(query, useragent='python-duckduckgo3 {}'.format(__version__)):
