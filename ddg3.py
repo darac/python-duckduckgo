@@ -3,11 +3,12 @@ import urllib.parse
 import requests
 from xml.etree import ElementTree
 
-__version__ = '0.6.5'
+__version__ = '0.6.6'
+_useragent = 'ddg3 {}'.format(__version__)
 
 
-def query(query, useragent='python-duckduckgo3 {}'.format(__version__)):
-    """
+def query(query, useragent=_useragent):
+    '''
     Query Duck Duck Go, returning a Results object.
 
     Here's a query that's unlikely to change:
@@ -19,9 +20,9 @@ def query(query, useragent='python-duckduckgo3 {}'.format(__version__)):
     '1 + 1 = 2'
     >>> result.answer.type
     'calc'
-    """
+    '''
     params = urllib.parse.urlencode({'q': query, 'o': 'x'})
-    url = 'http://duckduckgo.com/?' + params
+    url = 'http://duckduckgo.com/?{}'.format(params)
 
     request = requests.get(url, headers={'User-Agent': useragent})
     response = request.text
@@ -111,28 +112,29 @@ def main():
     from optparse import OptionParser
 
     parser = OptionParser(
-        usage="usage: %prog [options] query",
-        version="ddg3 {}".format(__version__)
+        usage='usage: %prog [options] query',
+        version='ddg3 {}'.format(__version__)
     )
     parser.add_option(
-        "-o", "--open",
-        dest="open",
-        action="store_true",
-        help="open results in a browser"
+        '-o',
+        '--open',
+        dest='open',
+        action='store_true',
+        help='open results in a browser'
     )
     parser.add_option(
-        "-n",
-        dest="n",
-        type="int",
+        '-n',
+        dest='n',
+        type='int',
         default=3,
-        help="number of results to show"
+        help='number of results to show'
     )
     parser.add_option(
-        "-d",
-        dest="d",
-        type="int",
+        '-d',
+        dest='d',
+        type='int',
         default=None,
-        help="disambiguation choice"
+        help='disambiguation choice'
     )
     (options, args) = parser.parse_args()
     q = ' '.join(args)
@@ -142,7 +144,7 @@ def main():
         import webbrowser
 
         webbrowser.open(
-            "http://duckduckgo.com/?{}".format(
+            'http://duckduckgo.com/?{}'.format(
                 urllib.urlencode(dict(q=q)),
                 new=2
             )
@@ -156,35 +158,37 @@ def main():
         try:
             related = results.related[options.d - 1]
         except IndexError:
-            print("Invalid disambiguation number.")
+            print('Invalid disambiguation number.')
             sys.exit(1)
-        results = query(related.url.split("/")[-1].replace("_", " "))
+        results = query(related.url.split('/')[-1].replace('_', ' '))
 
     if results.answer and results.answer.text:
-        print("Answer: {}\n".format(results.answer.text))
+        print('Answer: {}\n'.format(results.answer.text))
     elif results.abstract and results.abstract.text:
-        print("{}\n".format(results.abstract.text))
+        print('{}\n'.format(results.abstract.text))
 
     if results.type == 'disambiguation':
         print(
-            "'{}' can mean multiple things. You can re-run your query "
-            "and add '-d #' where '#' is the topic number you're "
-            "interested in.\n".format(q)
+            '''
+            '{}' can mean multiple things. You can re-run your query
+            and add '-d #' where '#' is the topic number you're
+            interested in.
+            '''.format(q).replace('\n', '').replace('\t', ' ')
         )
 
         for i, related in enumerate(results.related[0:options.n]):
-            name = related.url.split("/")[-1].replace("_", " ")
+            name = related.url.split('/')[-1].replace('_', ' ')
             summary = related.text
             if len(summary) < len(related.text):
-                summary += "..."
+                summary += '...'
             print('{}. {}: {}\n'.format(i + 1, name, summary))
     else:
         for i, result in enumerate(results.results[0:options.n]):
-            summary = result.text[0:70].replace("&nbsp;", " ")
+            summary = result.text[0:70].replace('&nbsp;', ' ')
             if len(summary) < len(result.text):
-                summary += "..."
-            print("{}. {}".format(i + 1, summary))
-            print("  <{}>\n".format(result.url))
+                summary += '...'
+            print('{}. {}'.format(i + 1, summary))
+            print('  <{}>\n'.format(result.url))
 
 
 if __name__ == '__main__':

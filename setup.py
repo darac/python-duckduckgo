@@ -4,7 +4,7 @@ long_description = open('README.rst').read()
 
 setup(
       name='ddg3',
-      version='0.6.5',
+      version='0.6.6',
       py_modules=['ddg3'],
       description='Library for querying the Duck Duck Go API, updated for python3',
       author='Michael Stephens, Jacobi Petrucciani',
