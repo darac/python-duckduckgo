@@ -1,5 +1,5 @@
 ==================
-python-duckduckgo
+ddg3
 ==================
 
 A Python library for querying the Duck Duck Go API.
